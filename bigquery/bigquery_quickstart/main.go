@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"cloud.google.com/go/bigquery"
 )
@@ -29,7 +30,8 @@ func main() {
 	ctx := context.Background()
 
 	// Sets your Google Cloud Platform project ID.
-	projectID := "YOUR_PROJECT_ID"
+	//projectID := "YOUR_PROJECT_ID"
+	projectID := os.Getenv("GOLANG_SAMPLES_PROJECT_ID")
 
 	// Creates a client.
 	client, err := bigquery.NewClient(ctx, projectID)
@@ -39,7 +41,7 @@ func main() {
 	defer client.Close()
 
 	// Sets the name for the new dataset.
-	datasetName := "my_new_dataset"
+	datasetName := "my_new_dataset_go"
 
 	// Creates the new BigQuery dataset.
 	if err := client.Dataset(datasetName).Create(ctx, &bigquery.DatasetMetadata{}); err != nil {
